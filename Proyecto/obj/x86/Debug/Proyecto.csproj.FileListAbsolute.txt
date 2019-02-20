@@ -1,0 +1,6 @@
+/Volumes/LaCie/Usuarios/franferrerrodriguez/Projects/Proyecto/Proyecto/bin/Debug/Proyecto.exe
+/Volumes/LaCie/Usuarios/franferrerrodriguez/Projects/Proyecto/Proyecto/bin/Debug/Proyecto.pdb
+/Volumes/LaCie/Usuarios/franferrerrodriguez/Projects/Proyecto/Proyecto/obj/x86/Debug/Proyecto.csprojAssemblyReference.cache
+/Volumes/LaCie/Usuarios/franferrerrodriguez/Projects/Proyecto/Proyecto/obj/x86/Debug/Proyecto.csproj.CoreCompileInputs.cache
+/Volumes/LaCie/Usuarios/franferrerrodriguez/Projects/Proyecto/Proyecto/obj/x86/Debug/Proyecto.exe
+/Volumes/LaCie/Usuarios/franferrerrodriguez/Projects/Proyecto/Proyecto/obj/x86/Debug/Proyecto.pdb
