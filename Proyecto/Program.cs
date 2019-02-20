@@ -7,7 +7,7 @@ namespace Proyecto
     {
         public static void Main(string[] args)
         {
-            // 30 - 80 (5 NIVELES)esto es nuevo
+            // 30 - 80 (5 NIVELES)
             Juego juego = new Juego(Juego.Difficult.VERY_EASY, Juego.GameMode.CLOSED);
             juego.Start();
         }
@@ -67,11 +67,64 @@ namespace Proyecto
         }
 
         class Board {
-            public struct Snake
+
+            public class Snake
             {
                 public Piece head;
                 public Piece[] body;
             }
+
+            public class SpecialFood
+            {
+                public int x;
+                public int y;
+                private bool active_food;
+                private DateTime time = DateTime.Now;
+                private int time_quit = 5;
+                private int time_refresh = 10;
+
+                public bool IsActiveFood()
+                {
+                    return active_food;
+                }
+
+                public void SetActiveFood(bool active_food)
+                {
+                    this.active_food = active_food;
+                }
+
+                public DateTime GetTime()
+                {
+                    return time;
+                }
+
+                public void SetTime(DateTime time)
+                {
+                    this.time = time;
+                }
+
+                public int GetTimeQuit()
+                {
+                    return time_quit;
+                }
+
+                public void SetTimeQuit(int time_quit)
+                {
+                    this.time_quit = time_quit;
+                }
+
+                public int GetTimeRefresh()
+                {
+                    return time_refresh;
+                }
+
+                public void SetTimeRefresh(int time_refresh)
+                {
+                    this.time_refresh = time_refresh;
+                }
+
+            }
+
             private const int board_width = 40;
             private const int board_height = 20;
             private const int initial_snake_length = 3;
@@ -83,14 +136,15 @@ namespace Proyecto
             private int movements;
             private int score;
             private bool active_food;
-            private bool active_special_food;
-            private DateTime special_food_time;
+            private SpecialFood special_food;
 
             public Board()
             {
                 Console.CursorVisible = false;
                 board = new Piece[board_width, board_height];
                 SetSpeed(Juego.GetDifficult());
+
+                special_food = new SpecialFood();
 
                 int x0, x1, y0 = 0, y1 = 0;
                 for (int y = 0; y < board_height; y++)
@@ -114,6 +168,7 @@ namespace Proyecto
             {
                 if(snake_length > 1)
                 {
+                    snake = new Snake();
                     snake.body = new Piece[snake_length - 1];
                     for (int i = 0; i < snake_length - 1; i++)
                         snake.body[i] = GetBoardPiece(i, 0).SetType(Piece.Type.BODY);
@@ -133,25 +188,46 @@ namespace Proyecto
                 actual_piece = NextPiece(direction, actual_piece);
 
                 // Si la serpiente se encuentra con otra posición cuerpo, terminará el juego
-                if (actual_piece.GetType() == Piece.Type.BODY)
+                if (actual_piece.GetType().Equals(Piece.Type.BODY))
                     Juego.GameOver();
 
                 bool increase_snake = false;
                 // Si el tipo de la pieza actual es FOOD significa que ha encontrado comida
-                if (actual_piece.GetType() == Piece.Type.FOOD)
+                if (actual_piece.GetType().Equals(Piece.Type.FOOD))
                 {
                     // Si la serpiente encuentra comida, aumentamos el array snake.body una posición
+                    // TODO llevar a un método
+                    Array.Resize(ref snake.body, snake.body.Length + 1);
+                    // Seteamos increase_snake a true, informando que hay que incrementar el snake.body
+                    // TODO generar métodos getter y setter en todas las clases
+                    increase_snake = true;
+                    // Seteamos increase_snake a false, informando que hay que añadir más comida al tablero
+                    SetActiveFood(false);
+                    // Aumentamos puntuación del usuario en 1
+                    SetScore(score + 1);
+                }
+
+                // Si el tipo de la pieza actual es FOOD significa que ha encontrado comida
+                if (actual_piece.GetType().Equals(Piece.Type.SPECIAL_FOOD))
+                {
+                    // Si la serpiente encuentra comida, aumentamos el array snake.body una posición
+                    // TODO llevar a un método
                     Array.Resize(ref snake.body, snake.body.Length + 1);
                     // Seteamos increase_snake a true, informando que hay que incrementar el snake.body
                     increase_snake = true;
                     // Seteamos increase_snake a false, informando que hay que añadir más comida al tablero
-                    active_food = false;
-                    // Aumentamos puntuación del usuario
-                    score ++;
+                    special_food.SetActiveFood(false);
+                    // Seteamos de nuevo la fecha actual para que empiece a contar el tiempo para la salida de la nueva comida especial
+                    special_food.SetTime(DateTime.Now);
+                    // Aumentamos puntuación del usuario en 5
+                    SetScore(score += 5);
                 }
 
                 // Comprobamos si existe o debemos asignar comida en el tablero
                 UpdateFood();
+
+                // Comida especial
+                UpdateSpecialFood();
 
                 // Asignamos la pieza cabeza actual al array serpiente y pintamos
                 snake.head = actual_piece.SetType(Piece.Type.HEAD).Draw();
@@ -166,7 +242,7 @@ namespace Proyecto
                     actual_piece = GetBoardPiece(snake.body[i].GetX(), snake.body[i].GetY());
 
                     // Última pieza cuerpo de la serpiente
-                    if (i == 0)
+                    if (i.Equals(0))
                     {
                         // Si la serpiente no ha encontrado comida, la última posición será relleno y pintamos
                         actual_piece.SetType(Piece.Type.FILL).Draw();
@@ -271,9 +347,9 @@ namespace Proyecto
 
             public void UpdateFood()
             {
-                if (!active_food)
+                if (!IsActiveFood())
                 {
-                    active_food = true;
+                    SetActiveFood(true);
                     Random rnd;
                     int x, y;
 
@@ -283,7 +359,7 @@ namespace Proyecto
                         rnd = new Random();
                         x = rnd.Next(0, GetWidth());
                         y = rnd.Next(0, GetHeight());
-                        if (GetBoardPiece(x, y).GetType() == Piece.Type.FILL)
+                        if (GetBoardPiece(x, y).GetType().Equals(Piece.Type.FILL))
                             valid = true;
                     } while (!valid);
 
@@ -293,20 +369,33 @@ namespace Proyecto
 
             public void UpdateSpecialFood()
             {
-                if (!active_special_food)
+                if (!special_food.IsActiveFood() && special_food.GetTime().AddSeconds(special_food.GetTimeRefresh()) < DateTime.Now)
                 {
-                    active_special_food = true;
-
-                    /*
-                    if (food_time == new DateTime())
+                    special_food.SetTime(DateTime.Now);
+                    special_food.SetActiveFood(true);
+                    Random rnd;
+                    int x, y;
+                    bool valid = false;
+                    do
                     {
-                        food_time = DateTime.Now;
-                        board[x, y].SetType(Piece.Type.FOOD).Draw();
-                    }
+                        rnd = new Random();
+                        x = rnd.Next(0, GetWidth());
+                        y = rnd.Next(0, GetHeight());
 
-                    if(food_time.AddSeconds(5) < DateTime.Now)
-                        board[x, y].SetType(Piece.Type.FOOD).Draw();
-                    */
+                        special_food.x = x;
+                        special_food.y = y;
+
+                        if (GetBoardPiece(x, y).GetType().Equals(Piece.Type.FILL))
+                            valid = true;
+                    } while (!valid);
+
+                    board[x, y].SetType(Piece.Type.SPECIAL_FOOD).Draw();
+                }
+                else if (special_food.IsActiveFood() && special_food.GetTime().AddSeconds(special_food.GetTimeQuit()) < DateTime.Now)
+                {
+                    special_food.SetTime(DateTime.Now);
+                    special_food.SetActiveFood(false);
+                    board[special_food.x, special_food.y].SetType(Piece.Type.FILL).Draw();
                 }
             }
 
@@ -381,6 +470,16 @@ namespace Proyecto
             public void SetScore(int score)
             {
                 this.score = score;
+            }
+
+            public bool IsActiveFood()
+            {
+                return active_food;
+            }
+
+            public void SetActiveFood(bool active_food)
+            {
+                this.active_food = active_food;
             }
 
         }
