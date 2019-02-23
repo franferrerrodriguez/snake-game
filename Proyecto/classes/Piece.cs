@@ -3,6 +3,14 @@ namespace Proyecto.classes
 {
     public class Piece
     {
+        public enum Type { HEAD, BODY, FILL, BORDER, NORMAL_FOOD, SPECIAL_FOOD };
+        private BoardCoords boardCoords;
+        private CursorCoords cursorCoords;
+        private Board.Direction direction;
+        private Type type;
+        private ConsoleColor color;
+        private static bool change_body_color;
+
         private struct BoardCoords
         {
             public int x, y;
@@ -26,14 +34,6 @@ namespace Proyecto.classes
                 y1 = _y1;
             }
         }
-
-        public enum Type { HEAD, BODY, FILL, BORDER, FOOD, SPECIAL_FOOD };
-        private BoardCoords boardCoords;
-        private CursorCoords cursorCoords;
-        private Board.Direction direction;
-        private Type type;
-        private ConsoleColor color;
-        private static bool change_body_color;
 
         public Piece(int x, int y, int x0, int y0, int x1, int y1)
         {
@@ -79,7 +79,7 @@ namespace Proyecto.classes
                 case Type.BORDER:
                     color = ConsoleColor.DarkGray;
                     break;
-                case Type.FOOD:
+                case Type.NORMAL_FOOD:
                     color = ConsoleColor.DarkRed;
                     break;
                 case Type.SPECIAL_FOOD:

@@ -7,7 +7,7 @@ namespace Proyecto.classes
     {
         private static Board board;
         public enum GameMode { CLOSED, OPENED };
-        private static GameMode gameMode;
+        private static GameMode game_mode;
         public enum Difficult { VERY_EASY, EASY, NORMAL, HARD, EXTREME, INSANE };
         private static Difficult difficult;
 
@@ -19,12 +19,12 @@ namespace Proyecto.classes
 
         public static GameMode GetGameMode()
         {
-            return gameMode;
+            return game_mode;
         }
 
-        public static void SetGameMode(GameMode _gameMode)
+        public static void SetGameMode(GameMode _game_mode)
         {
-            gameMode = _gameMode;
+            game_mode = _game_mode;
         }
 
         public static Difficult GetDifficult()
@@ -44,7 +44,7 @@ namespace Proyecto.classes
             while (true)
             {
                 Thread.Sleep(board.GetSpeed());
-                board.GetSnake().MoveSnake(board);
+                board.GetSnake().Move(board);
             }
         }
 
@@ -54,6 +54,5 @@ namespace Proyecto.classes
             Environment.Exit(0);
             Console.ReadKey();
         }
-
     }
 }

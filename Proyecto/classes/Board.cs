@@ -5,7 +5,6 @@ namespace Proyecto
 {
     public class Board
     {
-
         private const int board_width = 40;
         private const int board_height = 20;
         private Snake snake;
@@ -15,7 +14,7 @@ namespace Proyecto
         private int speed;
         private int movements;
         private int score;
-        private Food food;
+        private Food normal_food;
         private Food special_food;
 
         public Board()
@@ -25,8 +24,8 @@ namespace Proyecto
             snake = new Snake();
             SetSpeed(Juego.GetDifficult());
 
-            food = new Food();
-            special_food = new Food();
+            normal_food = new NormalFood();
+            special_food = new SpecialFood();
 
             int x0, x1, y0 = 0, y1 = 0;
             for (int y = 0; y < board_height; y++)
@@ -43,7 +42,7 @@ namespace Proyecto
                 y1++;
             }
 
-            snake.MakeSnake(this);
+            snake.Make(this);
         }
 
         public Piece NextPiece(Direction direction, Piece piece)
@@ -207,12 +206,12 @@ namespace Proyecto
 
         public Food GetFood()
         {
-            return food;
+            return normal_food;
         }
 
-        public void SetFood(Food food)
+        public void SetFood(Food normal_food)
         {
-            this.food = food;
+            this.normal_food = normal_food;
         }
 
         public Food GetSpecialFood()
@@ -224,6 +223,5 @@ namespace Proyecto
         {
             this.special_food = special_food;
         }
-
     }
 }

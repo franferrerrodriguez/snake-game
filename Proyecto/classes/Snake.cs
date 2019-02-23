@@ -5,6 +5,10 @@ namespace Proyecto
 {
     public class Snake
     {
+        public Snake()
+        {
+        }
+
         private Piece head;
         private Piece[] body;
         private const int initial_snake_length = 3;
@@ -39,12 +43,12 @@ namespace Proyecto
             body[pos] = piece;
         }
 
-        public void ResizeSnake(int n)
+        public void Resize(int n)
         {
             Array.Resize(ref body, GetBodyArray().Length + n);
         }
 
-        public void MakeSnake(Board board)
+        public void Make(Board board)
         {
             SetBodyArray(new Piece[initial_snake_length - 1]);
             for (int i = 0; i < initial_snake_length - 1; i++)
@@ -53,7 +57,7 @@ namespace Proyecto
             SetHead(board.GetBoardPiece(initial_snake_length - 1, 0).SetType(Piece.Type.HEAD));
         }
 
-        public void MoveSnake(Board board)
+        public void Move(Board board)
         {
             Board.Direction direction = board.GetDirectionKeyboard();
             Board.Direction direction_tmp;
@@ -70,29 +74,36 @@ namespace Proyecto
 
             bool increase_snake = false;
             // Si el tipo de la pieza actual es FOOD significa que ha encontrado comida
-            if (actual_piece.GetType().Equals(Piece.Type.FOOD))
+            if (actual_piece.GetType().Equals(Piece.Type.NORMAL_FOOD))
             {
                 // Si la serpiente encuentra comida, aumentamos el array snake.body una posición
-                ResizeSnake(1);
+                Resize(1);
+
                 // Seteamos increase_snake a true, informando que hay que incrementar el snake.body
                 increase_snake = true;
-                // Seteamos increase_snake a false, informando que hay que añadir más comida al tablero
+
+                // Seteamos increase_snake a false, informando que ya no existe comida en el tablero
                 board.GetFood().SetActiveFood(false);
+
                 // Aumentamos puntuación del usuario en 1
                 board.SumScore(1);
             }
 
-            // Si el tipo de la pieza actual es FOOD significa que ha encontrado comida
+            // Si el tipo de la pieza actual es FOOD significa que ha encontrado comida especial
             if (actual_piece.GetType().Equals(Piece.Type.SPECIAL_FOOD))
             {
-                // Si la serpiente encuentra comida, aumentamos el array snake.body una posición
-                ResizeSnake(1);
+                // Si la serpiente encuentra comida especial, aumentamos el array snake.body una posición
+                Resize(1);
+
                 // Seteamos increase_snake a true, informando que hay que incrementar el snake.body
                 increase_snake = true;
-                // Seteamos increase_snake a false, informando que hay que añadir más comida al tablero
+
+                // Seteamos increase_snake a false, informando que ya no existe comida especial en el tablero
                 board.GetSpecialFood().SetActiveFood(false).SetTime(DateTime.Now);
+
                 // Seteamos de nuevo la fecha actual para que empiece a contar el tiempo para la salida de la nueva comida especial
                 board.GetSpecialFood();
+
                 // Aumentamos puntuación del usuario en 5
                 board.SumScore(5);
             }
@@ -101,7 +112,7 @@ namespace Proyecto
             board.GetFood().UpdateFood(board);
 
             // Comida especial
-            board.GetSpecialFood().UpdateSpecialFood(board);
+            board.GetSpecialFood().UpdateFood(board);
 
             // Asignamos la pieza cabeza actual al array serpiente y pintamos
             SetHead(actual_piece.SetType(Piece.Type.HEAD).Draw());
@@ -141,6 +152,5 @@ namespace Proyecto
                 direction = direction_tmp;
             }
         }
-
     }
 }
