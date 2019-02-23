@@ -1,0 +1,12 @@
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/Proyecto/bin/Debug/Proyecto.exe
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/Proyecto/bin/Debug/Proyecto.pdb
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/Proyecto/obj/x86/Debug/SnakeGame.csprojAssemblyReference.cache
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/Proyecto/obj/x86/Debug/SnakeGame.csproj.CoreCompileInputs.cache
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/Proyecto/obj/x86/Debug/Proyecto.exe
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/Proyecto/obj/x86/Debug/Proyecto.pdb
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/SnakeGame/bin/Debug/Proyecto.exe
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/SnakeGame/bin/Debug/Proyecto.pdb
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/SnakeGame/obj/x86/Debug/SnakeGame.csprojAssemblyReference.cache
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/SnakeGame/obj/x86/Debug/SnakeGame.csproj.CoreCompileInputs.cache
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/SnakeGame/obj/x86/Debug/Proyecto.exe
+/Volumes/LaCie/Usuarios/franferrerrodriguez/git/snake-game/SnakeGame/obj/x86/Debug/Proyecto.pdb
