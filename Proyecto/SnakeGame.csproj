@@ -39,7 +39,7 @@
     <Compile Include="classes\Snake.cs" />
     <Compile Include="classes\Food.cs" />
     <Compile Include="classes\Piece.cs" />
-    <Compile Include="classes\Juego.cs" />
+    <Compile Include="classes\Game.cs" />
     <Compile Include="classes\NormalFood.cs" />
     <Compile Include="classes\SpecialFood.cs" />
   </ItemGroup>

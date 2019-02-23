@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Proyecto.classes
 {
-    public class Juego
+    public class Game
     {
         private static Board board;
         public enum GameMode { CLOSED, OPENED };
@@ -11,7 +11,7 @@ namespace Proyecto.classes
         public enum Difficult { VERY_EASY, EASY, NORMAL, HARD, EXTREME, INSANE };
         private static Difficult difficult;
 
-        public Juego(Difficult difficult, GameMode gameMode)
+        public Game(Difficult difficult, GameMode gameMode)
         {
             SetDifficult(difficult);
             SetGameMode(gameMode);

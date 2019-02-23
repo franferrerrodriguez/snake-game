@@ -70,7 +70,7 @@ namespace Proyecto
 
             // Si la serpiente se encuentra con otra posición cuerpo, terminará el juego
             if (actual_piece.GetType().Equals(Piece.Type.BODY))
-                Juego.GameOver();
+                Game.GameOver();
 
             bool increase_snake = false;
             // Si el tipo de la pieza actual es FOOD significa que ha encontrado comida

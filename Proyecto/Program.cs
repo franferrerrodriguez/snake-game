@@ -9,8 +9,8 @@ namespace Proyecto
         public static void Main(string[] args)
         {
             // 40 - 90 (5 NIVELES)
-            Juego juego = new Juego(Juego.Difficult.VERY_EASY, Juego.GameMode.CLOSED);
-            juego.Start();
+            Game game = new Game(Game.Difficult.VERY_EASY, Game.GameMode.CLOSED);
+            game.Start();
         }
     }
 }

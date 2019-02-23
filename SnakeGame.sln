@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proyecto", "Proyecto\Proyecto.csproj", "{83432D99-7FBA-4D8C-A93B-AA45C1526FA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakeGame", "Proyecto\SnakeGame.csproj", "{83432D99-7FBA-4D8C-A93B-AA45C1526FA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

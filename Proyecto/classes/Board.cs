@@ -22,7 +22,7 @@ namespace Proyecto
             Console.CursorVisible = false;
             board = new Piece[board_width, board_height];
             snake = new Snake();
-            SetSpeed(Juego.GetDifficult());
+            SetSpeed(Game.GetDifficult());
 
             normal_food = new NormalFood();
             special_food = new SpecialFood();
@@ -131,26 +131,26 @@ namespace Proyecto
             return snake;
         }
 
-        public void SetSpeed(Juego.Difficult difficult)
+        public void SetSpeed(Game.Difficult difficult)
         {
             switch (difficult)
             {
-                case Juego.Difficult.VERY_EASY:
+                case Game.Difficult.VERY_EASY:
                     speed = 90;
                     break;
-                case Juego.Difficult.EASY:
+                case Game.Difficult.EASY:
                     speed = 80;
                     break;
-                case Juego.Difficult.NORMAL:
+                case Game.Difficult.NORMAL:
                     speed = 70;
                     break;
-                case Juego.Difficult.HARD:
+                case Game.Difficult.HARD:
                     speed = 60;
                     break;
-                case Juego.Difficult.EXTREME:
+                case Game.Difficult.EXTREME:
                     speed = 50;
                     break;
-                case Juego.Difficult.INSANE:
+                case Game.Difficult.INSANE:
                     speed = 40;
                     break;
                 default:
