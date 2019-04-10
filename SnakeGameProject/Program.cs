@@ -1,10 +1,13 @@
-﻿using System;
-using System.Threading;
-using Proyecto.classes;
+﻿using Proyecto.classes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Proyecto
+namespace SnakeGameProject
 {
-    class MainClass
+    class Program
     {
         public static void Main(string[] args)
         {
@@ -14,24 +17,3 @@ namespace Proyecto
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

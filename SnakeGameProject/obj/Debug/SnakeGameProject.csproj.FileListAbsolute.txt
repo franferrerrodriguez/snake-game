@@ -1,0 +1,7 @@
+C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.csprojAssemblyReference.cache
+C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.csproj.CoreCompileInputs.cache
+C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\bin\Debug\SnakeGameProject.exe.config
+C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\bin\Debug\SnakeGameProject.exe
+C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\bin\Debug\SnakeGameProject.pdb
+C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.exe
+C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.pdb
