@@ -1,17 +1,18 @@
 ﻿using System;
+
 namespace Proyecto.classes
 {
     public class SpecialFood : Food
     {
-        public SpecialFood()
-        {
-        }
-
+        /*
+         * Clase UpdateFood, encargada del manejo de la comida especial en el juego. Extiende de la clase padre Food
+         */
         public override Food UpdateFood(Board board)
         {
+            // Actualiza la comida especial dentro del tablero, la comida especial aparece y desaparece pasados unos segundos
             if (!IsActiveFood() && GetTime().AddSeconds(GetTimeRefresh()) < DateTime.Now)
             {
-                SetTime(DateTime.Now);
+                ResetTime();
                 SetActiveFood(true);
                 Random rnd;
                 bool valid = false;
@@ -29,11 +30,12 @@ namespace Proyecto.classes
             }
             else if (IsActiveFood() && GetTime().AddSeconds(GetTimeQuit()) < DateTime.Now)
             {
-                SetTime(DateTime.Now);
+                ResetTime();
                 SetActiveFood(false);
                 board.GetBoardPiece(x, y).SetType(Piece.Type.FILL).Draw();
             }
             return this;
         }
+
     }
 }

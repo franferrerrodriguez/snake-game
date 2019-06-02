@@ -3,12 +3,12 @@ using System.Threading;
 
 namespace Proyecto.classes
 {
+    /*
+     * Clase UpdateFood, encargada del manejo de la comida normal en el juego. Extiende de la clase padre Food
+     */
     public class NormalFood : Food
     {
-        public NormalFood()
-        {
-        }
-
+        // Actualiza la comida normal dentro del tablero
         public override Food UpdateFood(Board board)
         {
             if (!IsActiveFood())
@@ -30,5 +30,6 @@ namespace Proyecto.classes
             }
             return this;
         }
+
     }
 }

@@ -1,37 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 using Proyecto.classes;
+using SnakeGameProject.snake.exception;
 
 namespace Proyecto
 {
+    /*
+     * Clase Board, encargada del manejo del tablero del juego
+     */
     public class Board
     {
-        private const int board_width = 40;
-        private const int board_height = 20;
         private Snake snake;
+        private static int board_width = 50;
+        private static int board_height = 25;
+        private static int board_margin_top = 2;
         public enum Direction { UP, RIGHT, DOWN, LEFT };
         private Direction keyboard_direction = Direction.RIGHT;
         private readonly Piece[,] board;
-        private int speed;
-        private int movements;
-        private int score;
-        private Food normal_food;
-        private Food special_food;
+        private static Food normal_food;
+        private static Food special_food;
+        private const int initial_snake_length = 3;
 
         public Board()
         {
             Console.CursorVisible = false;
+            SetSizeWindow(Game.GetSizeWindow());
             board = new Piece[board_width, board_height];
-            snake = new Snake();
-            SetSpeed(Game.GetDifficult());
-
             normal_food = new NormalFood();
             special_food = new SpecialFood();
-
-            int x0, x1, y0 = 0, y1 = 0;
+            MakeBoardPiece();
+        }
+        public void MakeBoardPiece()
+        {
+            SetBorder();
+            int x0, x1, y0 = board_margin_top + 1, y1 = board_margin_top + 1;
             for (int y = 0; y < board_height; y++)
             {
-                x0 = 0;
-                x1 = 0;
+                x0 = 2;
+                x1 = 2;
                 for (int x = 0; x < board_width; x++)
                 {
                     SetBoardPiece(x, y, new Piece(x, y, x0++, y0, ++x1, y1).Draw());
@@ -41,8 +47,31 @@ namespace Proyecto
                 y0++;
                 y1++;
             }
+            MakeSnakeBoard();
+        }
 
-            snake.Make(this);
+        public void SetBorder()
+        {
+            if (Game.GetGameMode().Equals(Game.GameMode.CLOSED))
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+            else
+                Console.BackgroundColor = ConsoleColor.White;
+            List<int> lx = new List<int>() { 0, 1, board_width * 2 + 3, board_width * 2 + 2 };
+            List<int> ly = new List<int>() { 0 + board_margin_top, board_height + board_margin_top + 1 };
+            for (int y = 0 + board_margin_top; y < board_height + board_margin_top + 2; y++)
+                for (int x = 0; x < board_width * 2 + 4; x++)
+                    if (lx.Contains(x) || ly.Contains(y))
+                    {
+                        Console.SetCursorPosition(x, y);
+                        Console.Write(" ");
+                    }
+        }
+
+        public void MakeSnakeBoard()
+        {
+            snake = new Snake(this);
+            for (int i = initial_snake_length - 1; i >= 0; i--)
+                snake.SetSnakePiece(GetBoardPiece(i, 0));
         }
 
         public Piece NextPiece(Direction direction, Piece piece)
@@ -79,14 +108,16 @@ namespace Proyecto
                     break;
             }
 
-            // Comprobamos si se produce una excepción por exceder límites del array
             try
             {
                 piece = GetBoardPiece(x, y);
             }
             catch (IndexOutOfRangeException)
             {
-                piece = GetBoardPiece(x_limit, y_limit);
+                if (Game.GetGameMode().Equals(Game.GameMode.CLOSED))
+                    throw new GameOverException(this);
+                else
+                    piece = GetBoardPiece(x_limit, y_limit);
             }
 
             return piece;
@@ -121,7 +152,7 @@ namespace Proyecto
                     break;
             }
 
-            movements++;
+            Game.SumMovement();
 
             return keyboard_direction;
         }
@@ -131,30 +162,25 @@ namespace Proyecto
             return snake;
         }
 
-        public void SetSpeed(Game.Difficult difficult)
+        public void SetSizeWindow(Game.SizeWindow size_window)
         {
-            switch (difficult)
+            switch (size_window)
             {
-                case Game.Difficult.VERY_EASY:
-                    speed = 90;
+                case Game.SizeWindow.BIG:
+                    board_width = 50;
+                    board_height = 25;
                     break;
-                case Game.Difficult.EASY:
-                    speed = 80;
+                case Game.SizeWindow.MEDIUM:
+                    board_width = 40;
+                    board_height = 20;
                     break;
-                case Game.Difficult.NORMAL:
-                    speed = 70;
-                    break;
-                case Game.Difficult.HARD:
-                    speed = 60;
-                    break;
-                case Game.Difficult.EXTREME:
-                    speed = 50;
-                    break;
-                case Game.Difficult.INSANE:
-                    speed = 40;
+                case Game.SizeWindow.SMALL:
+                    board_width = 30;
+                    board_height = 15;
                     break;
                 default:
-                    speed = 40;
+                    board_width = 50;
+                    board_height = 25;
                     break;
             }
         }
@@ -179,29 +205,33 @@ namespace Proyecto
             return board_height;
         }
 
-        public int GetSpeed()
+        public void RefreshScore(int sum_score = 0)
         {
-            return speed;
-        }
+            Game.SumScore(sum_score);
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            for (int y = 0; y < board_margin_top; y++)
+            {
+                Console.SetCursorPosition(0, y);
+                for (int x = 0; x < GetWidth() * 2 + 4; x++)
+                    Console.Write(" ");
+            }
 
-        public int GetMovements()
-        {
-            return movements;
-        }
+            Console.SetCursorPosition(0, 0);
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine(String.Format(" {0} - TOTAL POINTS: {1} ", Game.GetUsername(), Game.GetScore()));
+            if (Game.GetGameOver())
+            {
+                Console.WriteLine(" TOTAL MOVEMENTS: " + Game.GetMovements() + " ");
 
-        public void SetMovements(int movements)
-        {
-            this.movements = movements;
-        }
+                string text1 = "GAME OVER";
+                Console.SetCursorPosition(GetWidth() - text1.Length / 2, 0);
+                Console.Write(text1);
 
-        public int GetScore()
-        {
-            return score;
-        }
-
-        public void SumScore(int sum_score)
-        {
-            score += sum_score;
+                string text2 = "Press any key to return to the main menu...";
+                Console.SetCursorPosition(GetWidth() - text2.Length / 2, 1);
+                Console.Write(text2);
+            }
+            
         }
 
         public Food GetFood()
@@ -209,19 +239,10 @@ namespace Proyecto
             return normal_food;
         }
 
-        public void SetFood(Food normal_food)
-        {
-            this.normal_food = normal_food;
-        }
-
         public Food GetSpecialFood()
         {
             return special_food;
         }
 
-        public void SetSpecialFood(Food special_food)
-        {
-            this.special_food = special_food;
-        }
     }
 }

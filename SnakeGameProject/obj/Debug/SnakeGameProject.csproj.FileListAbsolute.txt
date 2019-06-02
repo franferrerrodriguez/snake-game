@@ -5,3 +5,10 @@ C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\bin\
 C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\bin\Debug\SnakeGameProject.pdb
 C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.exe
 C:\Users\Francisco J. Ferrer\source\repos\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.pdb
+D:\Usuarios\Francisco J. Ferrer\Documents\git\SnakeGameProject\SnakeGameProject\bin\Debug\SnakeGameProject.exe.config
+D:\Usuarios\Francisco J. Ferrer\Documents\git\SnakeGameProject\SnakeGameProject\bin\Debug\SnakeGameProject.exe
+D:\Usuarios\Francisco J. Ferrer\Documents\git\SnakeGameProject\SnakeGameProject\bin\Debug\SnakeGameProject.pdb
+D:\Usuarios\Francisco J. Ferrer\Documents\git\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.csprojAssemblyReference.cache
+D:\Usuarios\Francisco J. Ferrer\Documents\git\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.csproj.CoreCompileInputs.cache
+D:\Usuarios\Francisco J. Ferrer\Documents\git\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.exe
+D:\Usuarios\Francisco J. Ferrer\Documents\git\SnakeGameProject\SnakeGameProject\obj\Debug\SnakeGameProject.pdb

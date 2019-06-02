@@ -1,6 +1,9 @@
 ﻿using System;
 namespace Proyecto.classes
 {
+    /*
+     * Clase Piece, encargada de generar piezas cuadradas ocupando distintas coordenadas del tablero
+     */
     public class Piece
     {
         public enum Type { HEAD, BODY, FILL, BORDER, NORMAL_FOOD, SPECIAL_FOOD };
@@ -60,6 +63,7 @@ namespace Proyecto.classes
             return direction;
         }
 
+        // Establece el tipo de la pieza (cabeza, cuerpo, relleno, borde, comida normal y comida especial)
         public Piece SetType(Type type)
         {
             this.type = type;
@@ -112,6 +116,7 @@ namespace Proyecto.classes
             Console.SetCursorPosition(cursorCoords.x1, cursorCoords.y1);
             Console.Write(" ");
             Console.SetCursorPosition(Board.GetWidth(), Board.GetHeight());
+            Console.BackgroundColor = ConsoleColor.Gray;
             return this;
         }
 

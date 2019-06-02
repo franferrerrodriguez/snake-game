@@ -1,6 +1,9 @@
 ﻿using System;
 namespace Proyecto.classes
 {
+    /*
+     * Clase Abstracta Food, encargada del manejo de la comida en el juego. De esta extenderán la comida normal y la comida especial
+     */
     public abstract class Food
     {
         public int x;
@@ -31,10 +34,9 @@ namespace Proyecto.classes
             return time;
         }
 
-        public Food SetTime(DateTime time)
+        public void ResetTime()
         {
-            this.time = time;
-            return this;
+            time = DateTime.Now;
         }
 
         public int GetTimeQuit()
